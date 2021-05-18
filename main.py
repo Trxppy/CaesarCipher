@@ -12,7 +12,10 @@ def encrypt(message, shift):
             shifted_index = current_index + shift
             if(shifted_index > 25):
                 shifted_index = shifted_index - 26 # make sure program doesn't throw an error if target index is > 25
-            encrypted_message = encrypted_message + chars[shifted_index]
+            if(char.isupper()): # handle case
+                encrypted_message = encrypted_message + chars[shifted_index].upper()
+            else:
+                encrypted_message = encrypted_message + chars[shifted_index]
         else:
             encrypted_message = encrypted_message + char
     return encrypted_message
@@ -79,7 +82,10 @@ def decrypt(message, shift):
                 shifted_index = current_index - shift
                 if(shifted_index < 0):
                     shifted_index = 26 - shifted_index # make sure program doesn't throw an error if target index is > 25
-                decrypted_message = decrypted_message + chars[shifted_index]
+                if(char.isupper()): # handle case
+                    decrypted_message = decrypted_message + chars[shifted_index].upper()
+                else:
+                    decrypted_message = decrypted_message + chars[shifted_index]
             else:
                 decrypted_message = decrypted_message + char
     else:
@@ -94,7 +100,10 @@ def decrypt(message, shift):
                     shifted_index = current_index - attempted_shifts
                     if(shifted_index < 0):
                         shifted_index = 26 + shifted_index # make sure program doesn't throw an error if target index is > 25
-                    brute_shifts[attempted_shifts] = brute_shifts[attempted_shifts] + chars[shifted_index]
+                    if(char.isupper()): # handle case
+                        brute_shifts[attempted_shifts] = brute_shifts[attempted_shifts] + chars[shifted_index].upper()
+                    else:
+                        brute_shifts[attempted_shifts] = brute_shifts[attempted_shifts] + chars[shifted_index]
                 else:
                     brute_shifts[attempted_shifts] = brute_shifts[attempted_shifts] + char
             attempted_shifts += 1
@@ -123,4 +132,3 @@ while(program_active):
         decryption_handler()
     elif(command == '2'):
         program_active = False
-
